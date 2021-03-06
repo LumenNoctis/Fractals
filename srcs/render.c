@@ -14,7 +14,7 @@ void RenderToScreen(Fractal *data)
 	SDLX_Display *display;
 
 	display = SDLX_DisplayGet();
-	fractals[0] = Mandelbrot;
+	fractals[0] = Julia;
 	//fractals[1] = Julia;
 	y = 0;
 	while (y < WIN_H)

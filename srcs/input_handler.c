@@ -16,10 +16,11 @@ void InputParse(Fractal *data)
 			SDL_Log("Zoom %f\n", data->zoom);
 		}
 	}
+	SDL_GetMouseState(&data->mouse_x, &data->mouse_y);
 	SDLX_InputUpdate(event);
 	input = SDLX_InputGet();
-	data->mousePos.x = input.mouse_x;
-	data->mousePos.y = input.mouse_y;
+	//data->mousePos.x = input.mouse_x;
+	//data->mousePos.y = input.mouse_y;
 	data->offset.x -= input.input[SDLX_LEFT]  * data ->zoom;//	* (data->zoom / 10);
 	data->offset.x += input.input[SDLX_RIGHT] * data ->zoom;// 	* (data->zoom / 10);
 	data->offset.y -= input.input[SDLX_UP] 	  * data ->zoom;//	* (data->zoom / 10);

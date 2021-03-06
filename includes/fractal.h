@@ -27,7 +27,8 @@ typedef struct Fractal
 	double zoom_step;
 
 	Color_data colorData;
-	MT_Vector2 mousePos;
+	int mouse_x;
+	int mouse_y;
 	MT_Vector2 offset;
 } Fractal;
 
