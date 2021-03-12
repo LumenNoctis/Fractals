@@ -8,7 +8,10 @@ Fractal *Fractal_Init()
 	data->colorData.colors = init_colors();
 	data->colorData.index = 0;
 	data->colorData.ncolors = 1;
-	data->zoom = 1;
+	data->cam.scale = 1;
+	data->zoom_step = 0.5;
+	data->cam.position.x = WIN_H / 2;
+	data->cam.position.y = WIN_W / 2;
 
 	SDLX_InputMap(SDL_SCANCODE_UP,	  1, SDLX_UP, 0);
 	SDLX_InputMap(SDL_SCANCODE_LEFT,  1, SDLX_LEFT, 0);
@@ -20,6 +23,7 @@ Fractal *Fractal_Init()
 	SDLX_InputMap(SDL_SCANCODE_S, 1, SDLX_DOWN, 0);
 	SDLX_InputMap(SDL_SCANCODE_D, 1, SDLX_RIGHT, 0);
 
+	SDLX_InputMap(SDL_SCANCODE_SPACE, 1, SDLX_PAUSE, 0);
 	return data;
 }
 

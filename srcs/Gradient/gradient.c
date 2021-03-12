@@ -63,12 +63,7 @@ SDL_Texture *render_grad_texture(Gradient grad, int amount, int h, int w)
 	SDL_Surface 	*surf;
 	SDL_Renderer 	*renderer;
 
-	//gauss_curve curve;
-	//gauss_matrix mat;
-
-
 	i = 0;
-	// Sets the step amount, if <= 0 , display 1 color per pixel in screen width
 	if (amount <= 0)
 		m = 1;
 	else
@@ -78,15 +73,8 @@ SDL_Texture *render_grad_texture(Gradient grad, int amount, int h, int w)
 	rect.w = m;
 	rect.y = 0;
 	rect.x = 0;
-	// Using surface for more speed
 	surf = SDL_CreateRGBSurface(0, w, h, 32, 0, 0, 0, 0);
 	renderer = SDLX_DisplayGet()->renderer;
-
-	// Gaussian blurr info
-	//curve.width = 3;
-	//curve.center = 0;
-	//curve.height = 5;
-	// create_gauss_matrix(curve, GAUSS_X_DIST, GAUSS_Y_DIST);
 
 	while (i + 1 < grad.ncolors)
 	{
@@ -102,7 +90,6 @@ SDL_Texture *render_grad_texture(Gradient grad, int amount, int h, int w)
 										converted_color >>  8,
 										255
 										);
-			//SDL_Log("Converted color %d \n", converted_color);
 			SDL_FillRect(surf, &rect, converted_color);
 			rect.x += m;
 		}
