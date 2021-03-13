@@ -1,24 +1,52 @@
 #include "fractal.h"
 
-typedef int (*Frac_func)(double x, double y, Fractal *frac);
+typedef EscapeData (*Frac_func)(double x, double y, Fractal *frac);
+
+static void SinColoring(Fractal *data, EscapeData esc, Uint8 *r, Uint8 *g, Uint8 *b)
+{
+	SinWave sr;
+	SinWave sg;
+	SinWave sb;
+
+	sr = data->colorData.waveData[0];
+	sg = data->colorData.waveData[1];
+	sb = data->colorData.waveData[2];
+	*r = sin(sr.frequency * esc.mod + sr.add) * sr.mid + (255 - sr.mid);
+	*g = sin(sg.frequency * esc.mod + sg.add) * sg.mid + (255 - sg.mid);
+	*b = sin(sb.frequency * esc.mod + sb.add) * sb.mid + (255 - sb.mid);
+}
+
+static void GradColoring(Fractal *data, EscapeData esc, Uint8 *r, Uint8 *g, Uint8 *b)
+{
+	int color;
+
+	color = data->colorData.colors[data->colorData.index][esc.iterations];
+	*r = color >> 24;
+	*g = color >> 16;
+	*b = color >> 8;	
+}
 
 void RenderToScreen(Fractal *data)
 {
-	static Frac_func fractals[2];
+	static Frac_func fractals[4];
 	int x;
 	int y;
+	int color;
 	Uint8 r;
 	Uint8 g;
 	Uint8 b;
 	double pixelX;
 	double pixelY;
-	int color;
+	EscapeData esc;
 
 	SDLX_Display *display;
 
 	display = SDLX_DisplayGet();
 	fractals[0] = Mandelbrot;
-	// fractals[0] = Julia;
+	fractals[1] = Julia;
+	fractals[2] = Burningship;
+	fractals[3] = Owo;
+
 	y = 0;
 	if (data->paused != 0)
 	{
@@ -32,14 +60,11 @@ void RenderToScreen(Fractal *data)
 		pixelX = data->cam.position.x - ((WIN_W / data->cam.scale) * 0.5);
 		while (x < WIN_W)
 		{
-			color = fractals[data->index](pixelX, pixelY, data);
-			r = sin(0.33 * color + 10) * 127.5 + 127.5;
-			g = sin(0.1 * color + 1) * 127.5 + 127.5;
-			b = sin(40 * color + 4) * 127.5 + 127.5;
-			// color = data->colorData.colors[0][color];
-			// r = color >> 24;
-			// g = color >> 16;
-			// b = color >> 8;
+			esc = fractals[data->fractal](pixelX, pixelY, data);
+			if (data->colorData.mode == 1)
+				SinColoring(data, esc, &r, &g, &b);
+			else 
+				GradColoring(data, esc, &r, &g, &b);
 			SDL_SetRenderDrawColor(display->renderer, r, g, b, 255);
 			SDL_RenderDrawPoint(display->renderer,  x, y);
 			x++;

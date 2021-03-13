@@ -5,7 +5,7 @@
 # include "MT/MT.h"
 # include "Gradient/gradient.h"
 
-# define LOD 125
+# define LOD 150
 
 typedef struct Imaginary
 {
@@ -13,11 +13,21 @@ typedef struct Imaginary
 	double i;
 } Imaginary;
 
+typedef struct SinWave
+{
+	double frequency;
+	double add;
+	double mid;
+}				SinWave;
+
 typedef struct Color_data
 {
-	int ncolors;
+	int rgb;
+	int mode;
 	int index;
+	int ncolors;
 	Uint32 **colors;
+	SinWave waveData[3];
 }				Color_data;
 
 typedef struct Camera
@@ -26,10 +36,17 @@ typedef struct Camera
 	double scale;
 }				Camera;
 
+typedef struct EscapeData
+{
+	int iterations;
+	double mod;
+}				EscapeData;
+
 typedef struct Fractal
 {
-	int index;
 	int paused;
+	int fractal;
+	int nfractal;
 	double zoom_step;
 
 	int mouse_x;
@@ -40,8 +57,10 @@ typedef struct Fractal
 	Camera cam;
 } Fractal;
 
-int Julia(double x, double y, Fractal *data);
-int Mandelbrot(double x, double y, Fractal *data);
+EscapeData Mandelbrot(double x, double y, Fractal *data);
+EscapeData Julia(double x, double y, Fractal *data);
+EscapeData Burningship(double x, double y, Fractal *data);
+EscapeData Owo(double x, double y, Fractal *data);
 
 void RenderToScreen(Fractal *data);
 void InputParse(Fractal *data);
