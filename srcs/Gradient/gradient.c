@@ -101,41 +101,37 @@ SDL_Texture *render_grad_texture(Gradient grad, int amount, int h, int w)
 
 Uint32 *GradArray_Get(int amount, Gradient grad)
 {
+	int scale;
 	int start;
 	int end;
-	int n;
 	int i;
 	int t;
+	int n;
 
 	double m;
-	double pos;
 	Uint32 *array;
 	Uint32 	color;
 
 
 	i = 0;
-	array = calloc(amount, sizeof(*array));
-	//array = malloc(amount * sizeof(*array));
 	if (amount <= 0)
 		return NULL;
-	else
-		m = (double)1 / amount;
-
-	pos = 0;
+	array = calloc(amount, sizeof(*array));
+	m = (amount * 2) / amount;
 	n = 0;
+	int total;
+
+	total = 0;
 	while (i + 1 < grad.ncolors)
 	{
-		start = grad.colors[i + 0].location;
-		end	= grad.colors[i + 1].location;
-		while (end >= pos)
+		start = grad.colors[i].location * (amount * 2);
+		end = grad.colors[i + 1].location * (amount * 2);
+		while (end >= n)
 		{
-			if (n >= amount)
-				break ;
-			t = num_Scale(pos * 100, start * 100, end * 100, 0, SMOOTHNESS);
-			color = GradColor_Get(t, grad, i);
-			pos += m;
-			array[n] = color;
-			n++;
+			t = num_Scale(n, start, end, 0, SMOOTHNESS);
+			array[total] = GradColor_Get(t, grad, i);			
+			n += m;
+			total++;
 		}
 		i++;
 	}
