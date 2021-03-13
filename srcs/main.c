@@ -14,6 +14,7 @@ Fractal *Fractal_Init()
 	data->cam.position.y = WIN_W / 2;
 	data->nfractal = 4;
 	data->fractal = 0;
+	data->paused = 1;
 
 	data->colorData.waveData[0].frequency = 0.33;
 	data->colorData.waveData[0].add = 1;
