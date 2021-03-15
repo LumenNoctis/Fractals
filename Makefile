@@ -38,7 +38,7 @@ OBJS = $(addprefix $(BIN_DIR), $(SRCS:.c=.o))
 all: $(NAME)
 
 $(NAME): $(BIN_DIR) $(OBJS)
-	gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(SRCS) $(LIBRARIES) -L -l $(STATIC_LIB)
+	gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(LIBRARIES) -L -l $(STATIC_LIB)
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)

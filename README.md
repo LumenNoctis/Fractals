@@ -23,5 +23,3 @@ Color Mode 1 - Sine Coloring-    :
     - Left / Right arrow : Switch between R G B components;
     - UP/ Down arrow     : Change current value;
     - Space              : Switch between frequency, factor and start point;
-
-```

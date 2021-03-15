@@ -6,7 +6,7 @@ void InputParse(Fractal *data)
 	SDLX_Input input;
 	SDL_Scancode code;
 	SDL_Event event;
-	Uint8 *keyboard;
+	const Uint8 *keyboard;
 
 	keyboard = SDL_GetKeyboardState(NULL);
 	SDL_GetMouseState(&data->mouse_x, &data->mouse_y);
@@ -20,20 +20,14 @@ void InputParse(Fractal *data)
 				data->cam.scale = data->cam.scale  * (1.5);
 			else
 				data->cam.scale = data->cam.scale  / (1.5);
-			// data->zoom_step += event.wheel.y * 0.2; 
 			if (data->cam.scale < 1)
-			{
 				data->cam.scale = 1;
-				// data->zoom_step = 0.5;
-			}
 		}
 		if (event.type == SDL_MOUSEBUTTONDOWN)
 			data->colorData.mode ^= 1;
 		if (event.type == SDL_KEYDOWN)
 		{
-			// SDL_Log("", data->paused);
 			code = event.key.keysym.scancode;
-			SDL_Log("Keynum %d Fac no %d, Mode %d | RGB %d , Grad Index %d", code, data->fractal, data->colorData.mode, data->colorData.rgb, data->colorData.index);
 			if (code == SDL_SCANCODE_RETURN)
 				data->paused ^= 1;
 			if (code == SDL_SCANCODE_SPACE)
@@ -48,7 +42,6 @@ void InputParse(Fractal *data)
 			}
 			if (code == SDL_SCANCODE_LEFT)
 			{
-				// 1 = sinwave coloring, 0 = gradient coloring
 				if (data->colorData.mode == 1)
 					data->colorData.rgb = (data->colorData.rgb - 1) % 3;
 				else
