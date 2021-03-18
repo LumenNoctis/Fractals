@@ -15,7 +15,7 @@ EscapeData Mandelbrot(double x, double y, Fractal *data)
 	z.i = c.i;
 	i = 0;
 	mod = 0;
-	while (i < LOD - 1 && (z.r * z.r + z.i * z.i) <= 4)
+	while (i < (LOD - 1) && (z.r * z.r + z.i * z.i) <= 4)
 	{
 		tmp.r = z.r;
 		tmp.i = z.i;
