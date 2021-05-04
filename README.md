@@ -7,6 +7,9 @@ This a remake of an old project I did as a student.
 Looking back there is a heap of things that can be improved, and that is what I ammsetting out to do with this project.
 Since we used a school library to code this project, it has to be rewritten using another library, in this case, I will use SDL.
 
+
+<img align="top" src="Ressources/icon.png" />
+
 Controls :
 
 ```
@@ -23,3 +26,6 @@ Color Mode 1 - Sine Coloring-    :
     - Left / Right arrow : Switch between R G B components;
     - UP/ Down arrow     : Change current value;
     - Space              : Switch between frequency, factor and start point;
+
+
+<img align="top" src="Ressources/burningship.gif" />
