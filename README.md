@@ -27,5 +27,5 @@ Color Mode 1 - Sine Coloring-    :
     - UP/ Down arrow     : Change current value;
     - Space              : Switch between frequency, factor and start point;
 
-
+```
 <img align="top" src="Ressources/burningship.gif" />
